@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
-
-
 </script>
 
 <template>
-<h1> Hello World</h1>
-<table>
+<h1> Countries</h1>
+
+<table class="border">
 
   <thead>
     <th>
@@ -17,14 +16,20 @@
   </thead>
   
   <tbody>
-    
+    <tr>
+      <td>Rhasta</td>
+      <td>Night Crawler</td>
+      <td>Night sShade</td>
+    </tr>
   </tbody>
 </table>
-<h1 class="text-red-700"> Hello, niga  </h1>
-<p class="text-[blue]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo ipsum dolorum eligendi, ad quis veritatis cumque quaerat ex sit nihil molestias rem. Suscipit eveniet enim amet commodi deleniti! Amet, maiores!</p>
+
 
 </template>
 
 <style>
-
+th,td
+  {
+    border: 1px solid black;
+  }
 </style>
