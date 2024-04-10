@@ -1,4 +1,29 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import axios from "axios";
+import { reactive } from 'vue';
+
+
+
+const state = reactive({
+data: ''
+}) 
+
+async function fetchAllCountries(){
+  try{
+    const res:any = await axios.get(`/all-countries`);
+    state.data = res.data
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+
+onMounted(async()=>{
+  await fetchAllCountries
+  console.log(state.data);
+})
 
 </script>
 

@@ -1,9 +1,11 @@
-const mysql = require('mysql2/promise');
+import { createPool } from 'mysql2/promise';
 
-// Database connection settings
-const connectionSettings = {
-  host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database'
-};
+const pool = createPool({
+  host: 'localhost', 
+  user: 'Wilton24',
+  port: '3306',  
+  password: '12345678',
+  database: 'world' 
+});
+
+export default pool
