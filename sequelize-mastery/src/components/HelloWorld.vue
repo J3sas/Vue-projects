@@ -1,43 +1,33 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import axios from "axios";
-import { reactive } from 'vue';
+import {useCountriesStore} from '../stores/countriesStore';
+
+const {title, allCountries, fetchCountries} = useCountriesStore();
 
 
-
-const state = reactive({
-data: ''
-}) 
-
-async function fetchAllCountries(){
-  try{
-    const res:any = await axios.get(`/all-countries`);
-    state.data = res.data
-  }
-  catch(err){
-    console.log(err);
-  }
-}
-
-
-onMounted(async()=>{
-  await fetchAllCountries
-  console.log(state.data);
+onMounted(()=>{
+   fetchCountries();
+  setTimeout(()=>{
+    console.log(allCountries);
+  },3000)
+  
 })
 
 </script>
 
 <template>
-<h1> Countries</h1>
+<h1> {{ title }}</h1>
+
+<p>{{ allCountries }}</p>
 
 <table class="border">
 
   <thead>
     <th>
-      Shaman king
+      ID
     </th>
-    <th>Murloc</th>
-    <th>Mirana</th>
+    <th>Country code</th>
+    <th>name</th>
   </thead>
   
   <tbody>
