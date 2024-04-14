@@ -6,18 +6,19 @@ const port = 8081;
 
 app.use(express.urlencoded({extended:true}))
 
-app.get('/all-countries', async (req, res) => {
-  try {
-    const result = await pool('SELECT * FROM countries');
-    const countries = result[0]
-    res.status(200).json(countries);
+app.get('/', async (req, res) => {
+  res.send({message: 'This is the homepage'})
 
-    console.log('BackendLOG', countries);
-  } catch (err) {
-    console.error('Error fetching countries:', err.message);
-    res.status(500).json({ message: 'Failed to retrieve countries' });
-  }
 });
+
+app.get('/all-countries', async(req,res)=>{
+  try{
+    const [countries] = await pool.query('SELECT * FROM countries');
+    res.status(200).json(countries)
+  } catch(err){
+    res.status(500).json(err)
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

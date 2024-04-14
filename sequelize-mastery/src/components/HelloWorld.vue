@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import {  onMounted  } from 'vue';
 import {useCountriesStore} from '../stores/countriesStore';
+import ReusableTable from './ReusableTable.vue'
 
-const {title, allCountries, fetchCountries} = useCountriesStore();
+const countryStore = useCountriesStore();
 
 
-onMounted(()=>{
-   fetchCountries();
-  setTimeout(()=>{
-    console.log(allCountries);
-  },3000)
-  
+
+
+onMounted(async()=>{
+  countryStore.getMockApi();
 })
+
 
 </script>
 
 <template>
-<h1> {{ title }}</h1>
-
-<p>{{ allCountries }}</p>
+ <h1> {{ countryStore.title }}</h1>
+ 
 
 <table class="border">
-
   <thead>
     <th>
       ID
@@ -30,14 +28,20 @@ onMounted(()=>{
     <th>name</th>
   </thead>
   
-  <tbody>
-    <tr>
-      <td>Rhasta</td>
-      <td>Night Crawler</td>
-      <td>Night sShade</td>
+  <tbody v-for="(item,i:number ) in countryStore.mockApiData">
+    <tr >
+      <td>{{ item.heroName }}</td>
+      <td>{{ item.heroAttribute }}</td>
+      <td>{{ item.heroMaxHp }}</td>
     </tr>
   </tbody>
 </table>
+
+<br>
+<h2>Data from Database</h2>
+
+
+<ReusableTable title="Countries"/>
 
 
 </template>
