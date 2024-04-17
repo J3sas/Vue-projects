@@ -10,20 +10,22 @@ export interface ICountries{
 export const useCountriesStore = defineStore('useCountriesStore',{
   state: ()=>({
     title: 'Countries of the Earth',
-    allCountries: [] as ICountries[],
+    allCountries: [] as any,
     sample: {} as any,
     mockApiData: [] as any
   }),
   actions:{
-      async fetchCountries(){   
-        try {
-          const response = await axios.get('/all-countries')
+      async fetchCountries(){
+        try{
+          const response = await axios.get('/all-countries');
           console.log(response);
-          this.allCountries = response.data;
-        } catch (error) {
-          console.log(error);
+          this.allCountries = await response.data;
+        }catch(err){
+          console.log(err);
+          
         }
       },
+    
       async sayHello(){
         const response = await axios.get('/')
         this.sample = response

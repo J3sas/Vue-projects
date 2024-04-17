@@ -11,14 +11,17 @@ app.get('/', async (req, res) => {
 
 });
 
-app.get('/all-countries', async(req,res)=>{
-  try{
+app.get('/all-countries', async (req, res) => {
+  try {
     const [countries] = await pool.query('SELECT * FROM countries');
-    res.status(200).json(countries)
-  } catch(err){
-    res.status(500).json(err)
+    res.setHeader('Content-Type', 'application/json');
+    console.log(typeof countries);
+    res.status(200).json(countries);
+  } catch (err) {
+    console.error('Error fetching countries:', err);
+    res.status(500).json({ message: 'Error retrieving countries' });
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
