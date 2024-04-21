@@ -1,5 +1,5 @@
 import express from "express"
-import pool from './database.config.js'
+import Country from './models/countries'
 
 const app = express();
 const port = 8081;
@@ -11,17 +11,12 @@ app.get('/', async (req, res) => {
 
 });
 
-app.get('/all-countries', async (req, res) => {
-  try {
-    const [countries] = await pool.query('SELECT * FROM countries');
-    res.setHeader('Content-Type', 'application/json');
-    console.log(typeof countries);
-    res.status(200).json(countries);
-  } catch (err) {
-    console.error('Error fetching countries:', err);
-    res.status(500).json({ message: 'Error retrieving countries' });
-  }
-});
+app.get('/all-countries', async (req,res)=>{
+  const users = await Country.findAll();
+  console.log(users);
+  res.send(users.json)
+})
+  
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
