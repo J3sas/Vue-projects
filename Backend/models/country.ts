@@ -1,22 +1,23 @@
-import { Model, DataTypes } from 'sequelize';
-import sequelize from '../database.config';
+import { Sequelize, DataTypes, Model } from 'sequelize';
+
+const sequelize = new Sequelize('world', 'Wilton24', '12345678', {
+  host: 'localhost',
+  dialect: 'mariadb',
+  port: 3306, 
+});
 
 class Country extends Model {
   public id!: number;
   public country_code!: string;
   public country_name!: string;
-
-
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
 }
 
 Country.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     country_code: {
       type: DataTypes.STRING,
@@ -30,8 +31,13 @@ Country.init(
   {
     sequelize,
     modelName: 'Country',
-    tableName: 'countries', // Name of your existing table
+    timestamps: false,
   }
 );
+
+(async () => {
+  await sequelize.sync();
+  console.log('Countries model synchronized successfully');
+})();
 
 export default Country;
