@@ -1,10 +1,34 @@
+// {
+//   "compilerOptions": {
+//     "target": "",
+//     "module": "NodeNext",
+//     "esModuleInterop": true,
+//     "strict": true,
+//     "moduleResolution": "NodeNext",
+//     "skipLibCheck": true,
+//     "allowImportingTsExtensions": true,
+//     "outDir": "./dist",
+//     "rootDir": "./src"
+//   },
+//   "include": ["src/**/*"],
+// }
+
 {
   "compilerOptions": {
-    "esModuleInterop": true,                             
-    "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",    
-    "strict": true,                                      
-    "skipLibCheck": true,
-    "target": "ES2016"                             
-  }
+    "target": "ES6",
+    "module": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "allowJs": true,  
+    "declaration": true,
+    "sourceMap": true,
+    "noEmitOnError": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js"
+  ]
 }
