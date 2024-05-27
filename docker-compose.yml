@@ -1,0 +1,23 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./CRUD-Vue-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173" 
+    command: ["pm2-runtime", "npm", "--", "run", "dev"]
+    volumes:
+      - ./CRUD-Vue-frontend:/app
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./CRUD-JS-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    command: ["pm2-runtime", "npm", "--", "run", "serve"]
+    volumes:
+      - ./CRUD-JS-backend:/app
