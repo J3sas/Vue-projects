@@ -1,6 +1,5 @@
 import express from "express";
-import axios from "axios";
-import { getAllHeroes } from "../controller/heroesController.js";
+import { getAllHeroes, deleteHero } from "../controller/heroesController.js";
 
 const router = express.Router();
 const apiURL = `https://65ef1759ead08fa78a4fc40d.mockapi.io/heroesApi`;
@@ -23,15 +22,15 @@ router.get('/all-heroes',async (req,res)=>{
 router.delete(`/delete-hero/:id`, async (req,res)=>{
   try{
     const id = req.params.id;
-    const response = await axios.delete(`${apiURL}/${id}`);
-    res.status(200).send(response.status);
+    const response = await deleteHero(id);
+    res.status(200).send(response);
   } catch(err){
     res.status(err.response?.status || 500).send(err.message);
   }
 })
 
 router.post('/new-hero', async (req,res)=>{
-
+ 
 })
 
 router.patch('/editHero', async (req,res)=>{

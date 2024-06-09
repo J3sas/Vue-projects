@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import Homepage from './components/pages/Homepage.vue';
+// import Homepage from "../pages/Homepage.vue";
+import Login from "../pages/login.vue";
 
 </script>
 
 <template>
-  <Homepage></Homepage>
+  <!-- <Homepage></Homepage> -->
+  <Login>   </Login>  
 
 </template>
 
