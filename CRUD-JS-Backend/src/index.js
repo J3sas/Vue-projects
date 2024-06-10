@@ -2,8 +2,10 @@
   import express from "express";
   import cors from 'cors';
   import routeTesting from "./routes/heroesRoutes.js"
-  import bcrypt, { hash } from "bcrypt";
   import { users } from "./db/userDb.js";
+  import {hashAuthSample,registrationController,loginController} from "./controller/authController.js";
+  import {authenticateToken} from "./middleware/authMiddleware.js";
+
 
   const app = express();
   dotenv.config();
@@ -17,48 +19,22 @@
     res.json({users: users})
   })
 
-  app.get('/hashSample', async(req,res)=>{
-    const hashSample = await bcrypt.hash('sampleHash',10);
-    res.json({
-      hashSample: hashSample,
-      anotherHash: hashSample
-    }).status(200)
+  app.post('/whatUser',authenticateToken, async(req,res)=>{
+    const user = users.filter(user=> user.username == req.user.username);
+    res.json(user);
   })
 
+  app.get('/hashSample',  async(req,res)=>{
+    hashAuthSample(req,res);
+  })
   app.post('/registration', async (req,res)=>{
-
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = {
-      id: users.length +1,
-      username: req.body.username,
-      password: hashedPassword
-    }
-    users.push(user);
-    
-    res.json(users).status(201);
-
+    registrationController(req,res);
   })
 
 
   app.post('/login', async(req, res)=>{
-    const user = users.find(user => user.username === req.body.username);
-    if (user == null){
-      res.status(400).json({message: 'No user found'})
-    }
-
-    try{
-      if (await bcrypt.compare(req.body.password, user.password)){
-        res.send('Logged in :D');
-      } else{
-        res.send('Error! Wrong password or username!')
-      }
-    } catch(err){
-      res.status(500).send();
-    }
-
-
+    loginController(req,res)
   })
-
 
   app.use('/heroesRoute', routeTesting)
 
