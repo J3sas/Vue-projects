@@ -3,14 +3,19 @@ import { users } from "../db/userDb.js";
 import jwt from "jsonwebtoken";
 
 export const registrationService = async (req,res)=>{
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const user = {
-    id: users.length +1,
-    username: req.body.username,
-    password: hashedPassword
+  const userTaken = users.find(user => user.name === req.body.username);
+  if(userTaken){
+    res.sendStatus(409);
+  } else{
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = {
+      id: users.length +1,
+      username: req.body.username,
+      password: hashedPassword
+    }
+    users.push(user);     
+    res.json(users).status(201);
   }
-  users.push(user);     
-  res.json(users).status(201);
 }
 
 
