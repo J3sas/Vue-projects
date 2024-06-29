@@ -1,6 +1,7 @@
-import { config } from "dotenv";
-import express from "express";
+import dotenv from "dotenv";
+import express, {Express, Request, Response, NextFunction} from "express";
 import cors from 'cors';
+import { User } from "./model/user";
 // import routeTesting from "./routes/heroesRoutes.js"
 // import { users } from "./db/userDb.js";
 // import {hashAuthSample,registrationController,loginController} from "./controller/authController.js";
@@ -12,20 +13,28 @@ const sampleMiddleware = (req: any, res: any, next: () => void)=>{
   next()
 }
 
-function sayHello(): string{
+function sayHello(req: Request,res: Response, next:NextFunction){
   console.log('Hello :D')
-  return "Hello"
+  next();
 }
 
 
-sayHello();
 const app = express();
-config();
+dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended:true}));   
 app.use(cors());
 
+app.get('/', sayHello,(req,res)=>{
+  res.send("TS + Node working :D")
+})
+
+
+app.get('/all-users', async (req: Request, res: Response,)=>{
+  const respo = await User.findAll();
+  res.json(respo);
+})
 
 // app.get('/users', sampleMiddleware, (req,res)=>{
 //   res.json({users: users})
