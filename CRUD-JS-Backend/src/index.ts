@@ -31,9 +31,30 @@ app.get('/', sayHello,(req,res)=>{
 })
 
 
+const newUser = {
+  id: 24,
+  email: 'koBe',
+  password: 'gro2',
+  name: 'diMaPildi'
+}
+
+app.post('/post-user', async (req: Request, res: Response, next: NextFunction)=>{
+  const newData = req.body;
+  try{
+    const respo = await User.create(newUser);
+    console.log(respo);
+    res.status(200).json(respo);
+  } catch(err: unknown){
+    console.log(err);
+  }
+
+
+})
+
+
 app.get('/all-users', async (req: Request, res: Response,)=>{
   const respo = await User.findAll();
-  res.json(respo);
+  res.status(200).json(respo);
 })
 
 // app.get('/users', sampleMiddleware, (req,res)=>{

@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "ts-node-dev src/index"
+    "serve": "ts-node-dev --respawn src/index",
+    "ts-node": "src/index"
   },
   "author": "Oyo",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.3.1",
+    "pm2": "^5.4.1",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6"
