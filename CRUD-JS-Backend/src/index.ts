@@ -47,8 +47,6 @@ app.post('/post-user', async (req: Request, res: Response, next: NextFunction)=>
   } catch(err: unknown){
     console.log(err);
   }
-
-
 })
 
 
