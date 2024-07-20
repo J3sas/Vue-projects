@@ -6,7 +6,7 @@ import Footer from '~/components/Footer.vue';
     <div class="p-5 bg-slate-100">
         <h1>HOME PAGE</h1>
         <p>This is HOME in the face of the earth</p>
-        <p>Sample change</p>
+        <p>Sample change edit for commit</p>
     </div>
 
     <Footer/>
